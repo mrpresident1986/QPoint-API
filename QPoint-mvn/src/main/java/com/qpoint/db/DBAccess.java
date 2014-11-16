@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -15,9 +17,17 @@ import java.sql.ResultSet;
  */
 public class DBAccess {
     
-    String dbURL = "jdbc:mysql://localhost:3306/qpoint";
-    String username = "qpoint";
-    String password = "qpoint";
+    String dbURL;
+    String username;
+    String password;
+
+    public DBAccess() {
+        ResourceBundle conf = ResourceBundle.getBundle("configurations");
+        dbURL = "jdbc:mysql://"+conf.getString("host")+":"+conf.getString("port")+"/"+conf.getString("dbName");
+        username = conf.getString("username");
+        password = conf.getString("password");
+    }
+    
     
     public ResultSet executeSelectQuery(String statement){
         
